@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; 
+    width: 100%;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+}
+
+.main-container {
+    width: 100%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+    width: 100%;
+    max-width: 500px; 
+    text-align: center; /* Center the text */
+  }
+  
+  /* Header */
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Input field for adding a todo */
+  input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #646262;
+  }
+  
+  button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  
+  /* Todo list styling */
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0 0;
+    text-align: left;
+  }
+  
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #fafafa;
+    border-radius: 4px;
+  }
+  
+  li button {
+    background-color: #ff6347;
+  }
+  
+  li button:hover {
+    background-color: #ff4500; /* Darker red on hover */
+  }
+  
+  /* Styling for edit mode */
+  /* input[type="text"].edit {
+    width: 60%;
+  } */
+  input.edit-input {
+    width: 58%;
+}
+  
+  div.edit-buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+  
+  .edit-buttons button {
+    background-color: #ff6347; /* Red color for cancel and save buttons */
+  }
+  
+  .edit-buttons button:hover {
+    background-color: #ff4500; /* Darker red on hover */
+  }
+  
