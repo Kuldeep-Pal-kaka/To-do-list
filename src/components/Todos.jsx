@@ -32,8 +32,8 @@ const Todos = () => {
      {todos.map((todo) => (
        <li key={todo.id}>
          {todo.fullname}{" "}
-        <button onClick={() => dispatch(removeTodo(todo.id))}>delete</button> 
-        <button onClick={() => dispatch(handleEdit())}>edit</button> 
+        <button onClick={() => dispatch(removeTodo(todo.id))}>Delete</button> 
+        <button onClick={() => dispatch(handleEdit())}>Edit</button> 
         </li>
     ))}
     </ul>

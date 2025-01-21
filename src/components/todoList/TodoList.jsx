@@ -7,8 +7,23 @@ const TodoList = () => {
   const [newTodo, setNewTodo] = useState('');
   const [editfullname, setEditfullname] = useState(''); // State for editing
   const [editingId, setEditingId] = useState(null); // State to track which todo is being edited
+
   const todos = useSelector(state => state.todos); // Get todos from the Redux store
   const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+
+  useEffect(() => {
+    const savedTodos = localStorage.getItem('todos');
+    if (savedTodos) {
+      const parsedTodos = JSON.parse(savedTodos);
+      parsedTodos.forEach((todo) => dispatch(addTodo(todo.text)));
+    }
+  }, [dispatch]);
+
 
   const handleAddTodo = () => {
     if (newTodo.trim()) {
@@ -34,58 +49,62 @@ const TodoList = () => {
     }
   };
 
-  // Use an effect to update the edit field with the correct todo text when editing
-  useEffect(() => {
-    if (editingId !== null) {
-      const todoBeingEdited = todos.find(todo => todo.id === editingId);
-      if (todoBeingEdited) {
-        setEditfullname(todoBeingEdited.text);
-      }
-    }
-  }, [editingId, todos]); // Re-run when editingId or todos change
-
   return (
-    <div className="body">
+    <div className="body" style={{ margin: '0 100px' }}>
+    <div className="main-container">
+          <div className='header'>
+            <h1>Todo List</h1> 
+            </div>
+       
 
-    <div className='main-container'>
-      <h1>Todo List</h1>
-      <input
-        type="text"
-        value={newTodo}
-        onChange={(e) => setNewTodo(e.target.value)}
-        placeholder="Enter new todo"
-        />
-      <button onClick={handleAddTodo}>Add Todo</button>
+        <div className='add-todo'>
+        <input
+            type="text"
+            value={newTodo}
+            onChange={(e) => setNewTodo(e.target.value)}
+            placeholder="Enter new todo"
+            />
+        <button onClick={handleAddTodo}>Add Todo</button>
 
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>
-            {editingId === todo.id ? (
-              <div>
-                <input
-                className='edit-input'
-                  type="text"
-                  value={editfullname}
-                  onChange={(e) => setEditfullname(e.target.value)}
-                  />
-                <button onClick={handleSaveEdit}>Save</button>
-                <button onClick={() => setEditingId(null)}>Cancel</button>
-              </div>
-            ) : (
-              <>
-                {todo.id}. {todo.text}{' '}
-                <button onClick={() => handleRemoveTodo(todo.id)}>Remove</button>
-                <button onClick={() => handleEditTodo(todo.id, todo.text)}>
-                  Edit
-                </button>
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
+            </div>
+
+<ul>
+  {todos.map((todo) => (
+    <li key={todo.id} className="todo-item">
+      {editingId === todo.id ? (
+        <div className="todo-container">
+          <input
+            className="edit-input"
+            type="text"
+            value={editfullname}
+            onChange={(e) => setEditfullname(e.target.value)}
+          />
+          <div className="todo-buttons">
+            <button onClick={handleSaveEdit}>Save</button>
+            <button onClick={() => setEditingId(null)}>Cancel</button>
+          </div>
         </div>
+      ) : (
+        <div className="todo-container">
+          <span className="todo-text">
+            {todo.id}. {todo.text}
+          </span>
+          <div className="todo-buttons">
+            <button onClick={() => handleRemoveTodo(todo.id)}>Remove</button>
+            <button onClick={() => handleEditTodo(todo.id, todo.text)}>Edit</button>
+          </div>
+        </div>
+      )}
+    </li>
+  ))}
+</ul>
+
+
+    </div>
+</div>
+
   );
 };
 
 export default TodoList;
+
